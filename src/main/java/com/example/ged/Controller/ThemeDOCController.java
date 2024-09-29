@@ -1,7 +1,7 @@
 package com.example.ged.Controller;
 
 import com.example.ged.Entity.ThemeDOC;
-import com.example.ged.Service.ThemeDOCService;
+import com.example.ged.Service.IMPL.ThemeDOCServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ThemeDOCController {
 
     @Autowired
-    private ThemeDOCService themeDOCService;
+    private ThemeDOCServiceImpl themeDOCService;
 
     @PostMapping
     public ResponseEntity<ThemeDOC> addThemeDOC(@RequestBody ThemeDOC themeDOC) {

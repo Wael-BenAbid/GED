@@ -15,29 +15,24 @@ public class DirectionController {
 
     @Autowired
     private DirectionService directionService;
-
-    // Méthode pour ajouter une nouvelle direction
     @PostMapping
     public ResponseEntity<Direction> addDirection(@RequestBody Direction direction) {
         Direction createdDirection = directionService.addDirection(direction);
         return new ResponseEntity<>(createdDirection, HttpStatus.CREATED);
     }
 
-    // Méthode pour récupérer toutes les directions
     @GetMapping
     public ResponseEntity<List<Direction>> getAllDirections() {
         List<Direction> directions = directionService.getAllDirections();
         return new ResponseEntity<>(directions, HttpStatus.OK);
     }
 
-    // Méthode pour récupérer une direction par son ID
     @GetMapping("/{id}")
     public ResponseEntity<Direction> getDirectionById(@PathVariable Long id) {
         Direction direction = directionService.getDirectionById(id);
         return new ResponseEntity<>(direction, HttpStatus.OK);
     }
 
-    // Méthode pour mettre à jour une direction
     @PutMapping("/{id}")
     public ResponseEntity<Direction> updateDirection(@PathVariable Long id, @RequestBody Direction direction) {
         direction.setIdDirection(id); // Assurez-vous que l'ID est mis à jour
@@ -52,5 +47,4 @@ public class DirectionController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // Autres méthodes pour gérer les relations avec ThemeDOC si nécessaire
 }
