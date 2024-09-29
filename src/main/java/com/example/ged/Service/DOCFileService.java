@@ -11,7 +11,7 @@ public interface DOCFileService {
 
     DOCFileDTO getDOCFileById(Long id);
 
-    DOCFileDTO updateDOCFile(Long id, DOCFileDTO docFileDTO);
+    DOCFileDTO updateDOCFile(DOCFileDTO docFileDTO);
 
     void deleteDOCFile(Long id);
 }

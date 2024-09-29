@@ -2,7 +2,6 @@ package com.example.ged.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Date;
 
 @Entity

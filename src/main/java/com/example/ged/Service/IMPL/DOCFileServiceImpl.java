@@ -2,12 +2,15 @@ package com.example.ged.Service.IMPL;
 
 import com.example.ged.Dto.DOCFileDTO;
 import com.example.ged.Entity.DOCFile;
+import com.example.ged.Entity.ThemeDOC;
 import com.example.ged.Repository.DOCFileRepository;
+import com.example.ged.Repository.ThemeDOCRepository;
 import com.example.ged.Service.DOCFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,13 +18,23 @@ public class DOCFileServiceImpl implements DOCFileService {
 
     @Autowired
     private DOCFileRepository docFileRepository;
-
+    @Autowired
+     private ThemeDOCRepository themeDOCRepository;
     @Override
     public DOCFileDTO createDOCFile(DOCFileDTO docFileDTO) {
-        DOCFile docFile = docFileDTO.toEntity();
-        DOCFile savedDocFile = docFileRepository.save(docFile);
-        return DOCFileDTO.fromEntity(savedDocFile);
+        Optional<ThemeDOC> optionalThemeDOC = themeDOCRepository.findById(docFileDTO.getIdThemeDOC());
+        if (optionalThemeDOC.isPresent()) {
+            DOCFile docFile = docFileDTO.toEntity(docFileDTO);
+            docFile.setThemeDOC(optionalThemeDOC.get());
+            DOCFile savedDocFile = docFileRepository.save(docFile);
+            return DOCFileDTO.fromEntity(savedDocFile);
+        }
+        else {
+            throw new RuntimeException("not found ThémeDOC ");
+        }
     }
+
+
 
     @Override
     public List<DOCFileDTO> getAllDOCFiles() {
@@ -38,8 +51,8 @@ public class DOCFileServiceImpl implements DOCFileService {
     }
 
     @Override
-    public DOCFileDTO updateDOCFile(Long id, DOCFileDTO docFileDTO) {
-        DOCFile existingDocFile = docFileRepository.findById(id)
+    public DOCFileDTO updateDOCFile( DOCFileDTO docFileDTO) {
+        DOCFile existingDocFile = docFileRepository.findById(docFileDTO.getIdDOCFile())
                 .orElseThrow(() -> new RuntimeException("DOCFile not found"));
 
         existingDocFile.setNomFichier(docFileDTO.getNomFichier());

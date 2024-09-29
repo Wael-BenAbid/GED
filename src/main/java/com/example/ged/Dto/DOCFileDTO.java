@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
 import java.util.Date;
 
 @Data
@@ -18,16 +17,15 @@ public class DOCFileDTO {
     private String nomFichier;
     private String pathFichier;
     private Date datecreation;
-
-    public DOCFile toEntity() {
+    private Long idThemeDOC;
+    public static DOCFile toEntity(DOCFileDTO docfiledto ) {
         return DOCFile.builder()
-                .idDOCFile(this.idDOCFile)
-                .nomFichier(this.nomFichier)
-                .pathFichier(this.pathFichier)
-                .datecreation(this.datecreation)
+                .idDOCFile(docfiledto.getIdDOCFile())
+                .nomFichier(docfiledto.getNomFichier())
+                .pathFichier(docfiledto.getPathFichier())
+                .datecreation(docfiledto.getDatecreation())
                 .build();
     }
-
     public static DOCFileDTO fromEntity(DOCFile docFile) {
         return DOCFileDTO.builder()
                 .idDOCFile(docFile.getIdDOCFile())
